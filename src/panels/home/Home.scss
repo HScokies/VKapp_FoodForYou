@@ -1,0 +1,22 @@
+.PanelHeader{
+    text-align: center;
+    font-weight: bold;
+}
+.Group{
+    &__Header{
+        font-weight: bolder;
+        margin-bottom: 25px;
+        padding-top: 5vh;
+    }
+    &__Card{
+        width: 80%;
+    }
+    &__Card img{
+        display: block;
+        width: 100%;
+        max-height: 30vh;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 8px 8px 0 0;
+    }
+}
