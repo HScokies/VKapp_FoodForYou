@@ -1,22 +1,39 @@
 import React from 'react';
 import './Recipes.scss';
-import { Icon12Add } from '@vkontakte/icons';
 
-import { Panel, PanelHeader, Header, Button, Group, Card, Div, CardGrid, Text, Title} from '@vkontakte/vkui';
+import CardRep from '../../components/cardRep/CardRep';
+import Header from '../../components/header/Header';
 
-const Recipes = ({ id }) => (
+import { Icon24List } from '@vkontakte/icons';
+import { Panel, SubnavigationButton, Group, Div, Text, Title} from '@vkontakte/vkui';
+
+const Recipes = ({ id }) => {
+
+
+    const Recipe = () => {
+        
+    }
+
+
+    return (
 	<Panel id={id}>
-		<PanelHeader><span className='PanelHeader'>Главная</span></PanelHeader>
-        <Group>
-            <Card mode="shadow" className="recipes__card">
-                <img className="recipes__card_img" src="https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400" alt="" />
-                <Div>
-                    <Title level="1">Клёвый рецептик⁣</Title>
-                    <Text className="recipes__card_descr">Ингредиенты....</Text>
-                </Div>
-            </Card>
+        <Header>Рецептики</Header>
+        <Group className='Group'>
+            <div className='recipes__button'>
+                <SubnavigationButton size='l'
+                    before={<Icon24List />}
+                    onClick={() => console.log('clickMd')}
+                    >
+                    Все категории
+                </SubnavigationButton>
+            </div>
+            <CardRep 
+            img='https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400' 
+            title='Клёвый рецептик' 
+            descr='Ингредиенты...' 
+            />
         </Group>
 	</Panel>
-);
+)};
 
 export default Recipes;

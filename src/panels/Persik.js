@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icon24List } from '@vkontakte/icons';
 
-import { Panel, PanelHeader, PanelHeaderBack } from '@vkontakte/vkui';
+import { Panel, PanelHeader, PanelHeaderBack, SubnavigationButton } from '@vkontakte/vkui';
 
 import persik from '../img/persik.png';
 import './Persik.css';
