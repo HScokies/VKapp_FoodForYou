@@ -17,7 +17,7 @@ const Home = ({ id, go, fetchedUser }) => (
 				title='Клёвый рецептик' 
 				descr='Ингредиенты...' />
 			</Div>
-            <Div>
+            <Div className='home__descr'>
                 <Title level='2'>
                     Крутая цитата известных поворов ???
                 </Title>

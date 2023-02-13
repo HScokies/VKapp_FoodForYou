@@ -1,14 +1,12 @@
 import React from 'react';
 import './Recipe.scss';
 
-import Header from '../../components/header/Header';
+import { Panel, Button, Group, Div, Text, Title, PanelHeader, PanelHeaderBack} from '@vkontakte/vkui';
 
-import { Panel, Button, Group, Div, Text, Title} from '@vkontakte/vkui';
-
-const Recipe = ({ id, title, preparation, ingredients, time }) => {
+const Recipe = ({ id, title, preparation, ingredients, time, go }) => {
     return (
 	<Panel id={id}>
-        <Header>{title}</Header>
+        <PanelHeader left={<PanelHeaderBack onClick={go} data-to="recipes"/>} separator={false}><span className='PanelHeader'>{title}</span></PanelHeader>
         <Group className='recipe'>
             <Div>
                 <img className='menu__img' src='https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400' alt='' />

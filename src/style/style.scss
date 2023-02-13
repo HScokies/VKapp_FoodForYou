@@ -45,3 +45,29 @@ p {
     box-shadow: none !important;
     border-radius: 0 !important;
 }
+
+// * {
+//   scrollbar-width: thin;
+//   scrollbar-color: blue orange;
+// }
+
+/* Работает в Chrome, Edge и Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: inherit;
+  filter: alpha(opacity=10);
+  -moz-opacity: 0.1;
+  opacity: 0.1;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: unset;
+//   filter: alpha(opacity=10);
+//   -moz-opacity: 0.1;
+//   opacity: 0.1;
+  border-radius: 20px;
+  border: 0.5px solid currentColor;
+}

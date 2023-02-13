@@ -4,9 +4,9 @@ import './CardRep.scss';
 import { Text,Div, Title, Card} from '@vkontakte/vkui';
 import { Icon28Like } from '@vkontakte/icons';
 
-const CardRep = ({ title, descr, img, onClick }) => {
+const CardRep = ({ title, descr, img, onClick, dataTo}) => {
     return (
-        <Card className="card" onClick={onClick}>
+        <Card className="card" onClick={onClick} data-to={dataTo}>
             <img className="card__img" src={img} alt="" />
             <Div className='card__text'>
                 <div>
