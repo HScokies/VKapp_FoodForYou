@@ -58,16 +58,21 @@ p {
 
 *::-webkit-scrollbar-track {
   background: inherit;
-  filter: alpha(opacity=10);
   -moz-opacity: 0.1;
   opacity: 0.1;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: unset;
-//   filter: alpha(opacity=10);
-//   -moz-opacity: 0.1;
-//   opacity: 0.1;
   border-radius: 20px;
-  border: 0.5px solid currentColor;
+  border: 2px solid #939393;
+}
+
+.vkuiPanelHeader__in{
+  min-width: 100%;
+}
+.vkuiPanelHeader__right.PanelHeader__right{
+  display: none;
+}
+.vkuiPanelHeaderButton--android .vkuiIcon--28{
+  padding: 0;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import bridge from '@vkontakte/vk-bridge';
-import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Tabbar, TabbarItem, ModalRoot, ModalPage, Group, ModalPageHeader, CellButton} from '@vkontakte/vkui';
+
+import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Tabbar, TabbarItem, ModalRoot, ModalPage, Group, ModalPageHeader, CellButton, PanelHeaderClose} from '@vkontakte/vkui';
 
 import { Icon28SearchLikeFilledOutline, Icon28HomeOutline, Icon28ArticleOutline, Icon28ChefHatOutline, Icon24DismissDark, Icon24ChevronCompactRight } from '@vkontakte/icons';
 import '@vkontakte/vkui/dist/vkui.css';
@@ -56,13 +57,13 @@ const App = () => {
 			<ModalPage
 			id={ROUTES.filters}
 			onClose={hideModal}
-			header={<ModalPageHeader
-				right={(<Icon24DismissDark onClick={hideModal} />)}
-				  >
+			header={
+			<ModalPageHeader right={<PanelHeaderClose onClick={hideModal}/>}>
 				Фильтры
-			  </ModalPageHeader>}>
+			  </ModalPageHeader>}
+			>
 				<Group>
-					<CellButton after={<Icon24ChevronCompactRight />}>Любая категория</CellButton>
+					<CellButton mode="undefined" after={<Icon24ChevronCompactRight />}>Любая категория</CellButton>
 					<CellButton after={<Icon24ChevronCompactRight />}>Завтраки</CellButton>
 					<CellButton after={<Icon24ChevronCompactRight />}>Закуски</CellButton>
 					<CellButton after={<Icon24ChevronCompactRight />}>Основные блюда</CellButton>
@@ -77,11 +78,10 @@ const App = () => {
 	)
 
 	return (
-		<ConfigProvider scheme={scheme}>
+		<ConfigProvider scheme={scheme} >
 			<AdaptivityProvider>
 				<AppRoot>
-					<SplitLayout modal={ModalSearch} popout={popout}
-					>
+					<SplitLayout modal={ModalSearch} popout={popout}>
 						<SplitCol>
 							<View activePanel={activePanel}>
 								<Home id={ROUTES.home} fetchedUser={fetchedUser} go={go} />
@@ -92,7 +92,7 @@ const App = () => {
 								<Recipe id='recipe' go={go}
 									title='Яичница'
 									time='Время приготовления составляет 5 минут'
-									ingredients='Яйца Соль <br/> Перец (по вкусу)'
+									ingredients={`Яйца Соль ${"\n"} Перец (по вкусу)`}
 									preparation='Разбейте яйца на разогретую сковородку и пожарьте их'
 								/>
 							</View>
