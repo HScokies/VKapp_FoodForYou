@@ -7,7 +7,7 @@ const Recipe = ({ id, title, preparation, ingredients, time, go }) => {
     return (
 	<Panel id={id}>
         <PanelHeader left={<PanelHeaderBack onClick={go} data-to="recipes"/>} separator={false}><span className='PanelHeader'>{title}</span></PanelHeader>
-        <Group className='recipe'>
+        <Group className='Group menu'>
             <Div>
                 <img className='menu__img' src='https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400' alt='' />
                 <Text className='menu__descr_img'>

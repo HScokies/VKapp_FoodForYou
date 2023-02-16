@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import bridge from '@vkontakte/vk-bridge';
 
-import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Tabbar, TabbarItem, ModalRoot, ModalPage, Group, ModalPageHeader, CellButton, PanelHeaderClose} from '@vkontakte/vkui';
+import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Tabbar, TabbarItem, ModalRoot, ModalPage, Group, ModalPageHeader, PanelHeaderClose, SimpleCell} from '@vkontakte/vkui';
 
 import { Icon28SearchLikeFilledOutline, Icon28HomeOutline, Icon28ArticleOutline, Icon28ChefHatOutline, Icon24DismissDark, Icon24ChevronCompactRight } from '@vkontakte/icons';
 import '@vkontakte/vkui/dist/vkui.css';
@@ -58,20 +58,20 @@ const App = () => {
 			id={ROUTES.filters}
 			onClose={hideModal}
 			header={
-			<ModalPageHeader right={<PanelHeaderClose onClick={hideModal}/>}>
+			<ModalPageHeader left={<PanelHeaderClose onClick={hideModal}/>}>
 				Фильтры
 			  </ModalPageHeader>}
 			>
 				<Group>
-					<CellButton mode="undefined" after={<Icon24ChevronCompactRight />}>Любая категория</CellButton>
-					<CellButton after={<Icon24ChevronCompactRight />}>Завтраки</CellButton>
-					<CellButton after={<Icon24ChevronCompactRight />}>Закуски</CellButton>
-					<CellButton after={<Icon24ChevronCompactRight />}>Основные блюда</CellButton>
-					<CellButton after={<Icon24ChevronCompactRight />}>Салаты</CellButton>
-					<CellButton after={<Icon24ChevronCompactRight />}>Супы</CellButton>
-					<CellButton after={<Icon24ChevronCompactRight />}>Сэндвичи</CellButton>
-					<CellButton after={<Icon24ChevronCompactRight />}>Выпечка и десерты</CellButton>
-					<CellButton after={<Icon24ChevronCompactRight />}>Соусы и маринады</CellButton>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Любая категория</SimpleCell>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Завтраки</SimpleCell>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Закуски</SimpleCell>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Основные блюда</SimpleCell>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Салаты</SimpleCell>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Супы</SimpleCell>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Сэндвичи</SimpleCell>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Выпечка и десерты</SimpleCell>
+					<SimpleCell after={<Icon24ChevronCompactRight />}>Соусы и маринады</SimpleCell>
 				</Group>
 			</ModalPage>
 		</ModalRoot>
@@ -88,7 +88,7 @@ const App = () => {
 								<Persik id={ROUTES.persik} go={go} />
 								<Recipes id={ROUTES.recipes} go={go} openFilters={openFilters} />
 								<Menu id={ROUTES.menu} />
-								<Liked id={ROUTES.liked} />
+								<Liked id={ROUTES.liked} go={go} />
 								<Recipe id='recipe' go={go}
 									title='Яичница'
 									time='Время приготовления составляет 5 минут'
@@ -98,16 +98,28 @@ const App = () => {
 							</View>
 						</SplitCol>
 						<Tabbar className='app__tabbar'>
-							<TabbarItem text='Главная'  onClick={go} data-to={ROUTES.home} >
+							<TabbarItem text='Главная' 
+							selected={activePanel === ROUTES.home}
+							onClick={go} 
+							data-to={ROUTES.home} >
 								<Icon28HomeOutline />
 							</TabbarItem>
-							<TabbarItem text='Категории'  onClick={go} data-to={ROUTES.recipes}>
+							<TabbarItem text='Категории'  
+							selected={activePanel === ROUTES.recipes}
+							onClick={go} 
+							data-to={ROUTES.recipes}>
 								<Icon28ArticleOutline />	
 							</TabbarItem>
-							<TabbarItem text='Меню' onClick={go} data-to={ROUTES.menu}>
+							<TabbarItem text='Меню' 
+							selected={activePanel === ROUTES.menu}
+							onClick={go} 
+							data-to={ROUTES.menu}>
 								<Icon28ChefHatOutline />
 							</TabbarItem>
-							<TabbarItem text='Понравилось' onClick={go} data-to={ROUTES.liked}>
+							<TabbarItem text='Понравилось' 
+							selected={activePanel === ROUTES.liked}
+							onClick={go} 
+							data-to={ROUTES.liked}>
 								<Icon28SearchLikeFilledOutline />
 							</TabbarItem>
 						</Tabbar>

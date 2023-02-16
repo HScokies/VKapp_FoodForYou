@@ -1,10 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
 import './Home.scss';
 import Header from '../../components/header/Header';
 import CardRep from '../../components/cardRep/CardRep';
 
-import { Panel, Text, Button, Group, Cell, Div, Avatar, Title, Card, CardGrid } from '@vkontakte/vkui';
+import { Panel, Group, Cell, Div, Avatar, Title, Text } from '@vkontakte/vkui';
 
 const Home = ({ id, go, fetchedUser }) => (
 	<Panel id={id}>
@@ -12,15 +11,16 @@ const Home = ({ id, go, fetchedUser }) => (
 		<Group mode='card' className='Group'>
 			<Title level='1' className='Group__Header'>Блюдо дня</Title>
 			<Div>
-				<CardRep 
+				<CardRep onClick={go} dataTo="recipe"
 				img='https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400' 
 				title='Клёвый рецептик' 
 				descr='Ингредиенты...' />
 			</Div>
-            <Div className='home__descr'>
+            <Div className='home__phrase'>
                 <Title level='2'>
-                    Крутая цитата известных поворов ???
+					Кулинария - это искусство, но все искусство требует знания техники и материалов.
                 </Title>
+				<Text className='home__phrase_descr'> &mdash; Натан Мирволд</Text>
             </Div>
 		</Group>
 		{/* {fetchedUser &&
@@ -43,17 +43,5 @@ const Home = ({ id, go, fetchedUser }) => (
 	</Panel>
 );
 
-Home.propTypes = {
-	id: PropTypes.string.isRequired,
-	go: PropTypes.func.isRequired,
-	fetchedUser: PropTypes.shape({
-		photo_200: PropTypes.string,
-		first_name: PropTypes.string,
-		last_name: PropTypes.string,
-		city: PropTypes.shape({
-			title: PropTypes.string,
-		}),
-	}),
-};
 
 export default Home;

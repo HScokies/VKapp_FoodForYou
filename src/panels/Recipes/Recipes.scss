@@ -1,12 +1,18 @@
 .recipes{
     margin-bottom: 30px;
-    &__button{
-        margin: 10px 0 40px;
+    &__category{
         display: flex;
-        justify-content: center;
+        align-items: flex-start;
+        margin: 4% 3%;
+    }
+    &__button{
+        margin: auto;
+        .vkuiButton__in{
+            padding: 10px 16px;
+            color: #F05C44;
+        }
     }
     &__cards{
         margin: 0 auto;
     }
-    
 }

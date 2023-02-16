@@ -1,6 +1,10 @@
 .menu{
     &__segmented{
         margin: 2% 5%;
+        .vkuiSegmentedControl__slider{
+            background-color: #70B87F;
+            opacity: 0.5;
+        }
     }
     &__img{
         margin: 3vh 0;
@@ -23,5 +27,9 @@
             font-size: 14px;
             padding: 10px 0 30px;
         }
+    }
+    .vkuiButton--lvl-secondary{
+        background-color: #F05C44;
+        color: #FFFFFF;
     }
 }

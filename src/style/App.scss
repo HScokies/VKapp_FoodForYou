@@ -1,5 +1,12 @@
 .app{
     &__tabbar{
         position: fixed;
+        .vkuiTabbarItem--selected{
+            color: #389F4D;
+        }
     }
+}
+
+.vkuiSimpleCell__after{
+    color: #B8C1CC;
 }

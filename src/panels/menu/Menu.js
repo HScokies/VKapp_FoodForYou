@@ -11,7 +11,7 @@ const Menu = ({ id }) => {
     return (
     <Panel id={id}>
         <Header>Меню на день</Header>
-        <Group className='Group'> 
+        <Group className='Group menu'> 
             <SegmentedControl className='menu__segmented'
             onChange={(value) => changeMenuValue(value)}
             options={[
@@ -60,7 +60,7 @@ const Menu = ({ id }) => {
                 mode='secondary' size='l'
                 stretched='true'
                 >
-                Добавить в понравившиеся
+                    Добавить в понравившиеся
               </Button>
             </Div>
         </Group>

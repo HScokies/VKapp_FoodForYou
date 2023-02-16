@@ -10,8 +10,14 @@
 }
 
 .home{
-    &__descr{
+    &__phrase{
         text-align: center;
+        max-width: 60%;
+        margin: 3% auto 0;
+        &_descr{
+            padding-top: 10px;
+            font-size: 17px;
+        }
     }
 }
 

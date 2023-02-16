@@ -6,20 +6,20 @@ import Header from '../../components/header/Header';
 import Recipe from '../recipe/Recipe';
 
 import { Icon24List } from '@vkontakte/icons';
-import { Panel, SubnavigationButton, Group, Div, Text, Title} from '@vkontakte/vkui';
+import { Panel, SubnavigationButton, Group, Search, Div, Text, Title, Button} from '@vkontakte/vkui';
 
 const Recipes = ({ id, go, openFilters }) => {
     return (
 	<Panel id={id}>
         <Header>Рецептики</Header>
         <Group className='Group'>
-            <div className='recipes__button'>
-                <SubnavigationButton size='l'
-                    before={<Icon24List />}
+            <div className='recipes__category'>
+                <Search placeholder='Поиск по рецептам...'/>
+                <Button mode='secondary' size='m' className='recipes__button'
                     onClick={openFilters}
                     >
-                    Все категории
-                </SubnavigationButton>
+                    <Icon24List />
+                </Button>
             </div>
             <CardRep onClick={go} dataTo="recipe"
             img='https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400' 

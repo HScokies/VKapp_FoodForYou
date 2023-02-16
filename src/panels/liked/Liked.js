@@ -11,7 +11,7 @@ const Recipes = ({ id, go }) => {
 	<Panel id={id}>
         <Header>Понравилось</Header>
         <Group className='Group'>
-            <CardRep onClick={go} data-to="recipe"
+            <CardRep onClick={go} dataTo="recipe"
             img='https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400' 
             title='Клёвый рецептик' 
             descr='Ингредиенты...'
