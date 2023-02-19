@@ -1,0 +1,35 @@
+.menu{
+    &__segmented{
+        margin: 2% 5%;
+        .vkuiSegmentedControl__slider{
+            background-color: #70B87F;
+            opacity: 0.5;
+        }
+    }
+    &__img{
+        margin: 3vh 0;
+        border-radius: 8px 8px 0 0;
+        display: block;
+        width: 100%;
+        max-height: 30vh;
+        object-fit: cover;
+        object-position: center;
+    }
+    &__descr{
+        padding: 15px 0;
+        &_img{
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            padding-bottom: 30px;
+        }
+        &_small{
+            font-size: 14px;
+            padding: 10px 0 30px;
+        }
+    }
+    .vkuiButton--lvl-secondary{
+        background-color: #F05C44;
+        color: #FFFFFF;
+    }
+}

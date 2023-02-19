@@ -1,0 +1,78 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+}
+
+ul,
+li,
+dl {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.Group > div{
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+// * {
+//   scrollbar-width: thin;
+//   scrollbar-color: blue orange;
+// }
+
+/* Работает в Chrome, Edge и Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: inherit;
+  -moz-opacity: 0.1;
+  opacity: 0.1;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  border: 2px solid #939393;
+}
+
+.vkuiPanelHeader__in{
+  min-width: 100%;
+}
+.vkuiPanelHeader__right.PanelHeader__right{
+  display: none;
+}
+.vkuiPanelHeaderButton--android .vkuiIcon--28{
+  padding: 0;
+}
