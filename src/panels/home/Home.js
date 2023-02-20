@@ -1,47 +1,53 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Home.scss';
 import Header from '../../components/header/Header';
 import CardRep from '../../components/cardRep/CardRep';
 
-import { Panel, Group, Cell, Div, Avatar, Title, Text } from '@vkontakte/vkui';
+import ROUTES from '../../ROUTES';
+import { UserId } from '../../Context';
 
-const Home = ({ id, go, fetchedUser }) => (
-	<Panel id={id}>
-		<Header>Главная</Header>
-		<Group mode='card' className='Group'>
-			<Title level='1' className='Group__Header'>Блюдо дня</Title>
-			<Div>
-				<CardRep onClick={go} dataTo="recipe"
-				img='https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400' 
-				title='Клёвый рецептик' 
-				descr='Ингредиенты...' />
-			</Div>
-            <Div className='home__phrase'>
-                <Title level='2'>
-					Кулинария - это искусство, но все искусство требует знания техники и материалов.
-                </Title>
-				<Text className='home__phrase_descr'> &mdash; Натан Мирволд</Text>
-            </Div>
-		</Group>
-		{/* {fetchedUser &&
-		<Group header={<Header mode="secondary">User Data Fetched with VK Bridge</Header>}>
-			<Cell
-				before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-				description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-			>
-				{`UID:${fetchedUser.id} ${fetchedUser.last_name}`}
-			</Cell>
-		</Group>}
+import { Panel, Group, Div, Title, Text } from '@vkontakte/vkui';
+import API from '../../api/AxiosConfig';
 
-		<Group header={<Header mode="secondary">Navigation Example</Header>}>
-			<Div>
-				<Button stretched size="l" mode="secondary" onClick={go} data-to="persik">
-					Show me the Persik, please
-				</Button>
-			</Div>
-		</Group> */}
-	</Panel>
-);
+const Home = ({ id, setActivePanel, setActiveDish }) => {
+	const userCtx = useContext(UserId);
+	const [dish, setDish] = useState([]);
+	const [products, setProducts] = useState(null);
+	useEffect(() =>{
+		const fetchData = async() =>{
+			const response = (await API.get(`/dishes/${userCtx.id}/list`)).data
+			const res = response[Math.floor(Math.random()*response.length)];
+			setProducts(res.products);
+			setDish(res);
+		}
+		if (userCtx != null)
+			fetchData();
+	}, [userCtx])
+	return (
+		<Panel id={id}>
+			<Header>Главная</Header>
+			<Group mode='card' className='Group'>
+				<Title level='1' className='Group__Header'>Как насчет:</Title>
+				<Div>
+					<CardRep
+					DishID={dish.id}
+					img={dish.photoURL}
+					title={dish.name}
+					descr={products == null? null : products.map(p => (p == products[products.length-1]? `${p.name}.` : `${p.name}, `))}
+					setActiveDish={setActiveDish}
+                    setActivePanel={setActivePanel}
+					/>
+				</Div>
+				<Div className='home__phrase'>
+					<Title level='2'>
+						Есть лишь одно удовольствие, превосходящее радость от вкусной еды, - это удовольствие от самого приготовления
+					</Title>
+					<Text className='home__phrase_descr'> &mdash; Гюнтер Грасс</Text>
+				</Div>
+			</Group>
+		</Panel>
+	)
+};
 
 
 export default Home;
