@@ -6,7 +6,7 @@
     }
     cursor: pointer;
     max-width: 80%;
-    margin: 0 auto;
+    margin: 0 auto 4%;
     &__img{
         border-radius: 8px 8px 0 0;
         display: block;
@@ -25,7 +25,7 @@
         &_like{
             opacity: 0.5;
             transition: color 0.3s linear;
-            &:hover{
+            &:hover, &-active{
                 color: #FF3347;
             }
         }

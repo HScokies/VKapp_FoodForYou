@@ -4,5 +4,6 @@ export const ROUTES = {
 	persik: 'persik',
 	menu: 'menu',
 	liked: 'liked',
-	filters: 'filters'
+	filters: 'filters',
+	recipe: 'recipe'
 };

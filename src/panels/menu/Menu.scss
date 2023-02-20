@@ -16,16 +16,24 @@
         object-position: center;
     }
     &__descr{
-        padding: 15px 0;
+        padding: 15px 2.5%;
+        ol {
+            li {
+                padding-bottom: 15px;
+            }
+        }
         &_img{
             font-size: 16px;
             font-weight: 500;
             text-align: center;
             padding-bottom: 30px;
+            span {
+                color: #F05C44;
+            }
         }
         &_small{
             font-size: 14px;
-            padding: 10px 0 30px;
+            padding: 10px 4% 30px;
         }
     }
     .vkuiButton--lvl-secondary{

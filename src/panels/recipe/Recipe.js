@@ -1,42 +1,94 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Recipe.scss';
+import Persik from '../../img/persik.png';
 
-import { Panel, Button, Group, Div, Text, Title, PanelHeader, PanelHeaderBack} from '@vkontakte/vkui';
+import { Panel, Button, Group, Div, Text, Title, PanelHeader, PanelHeaderBack } from '@vkontakte/vkui';
+import API from '../../api/AxiosConfig';
 
-const Recipe = ({ id, title, preparation, ingredients, time, go }) => {
+import { UserId } from '../../Context';
+
+const Recipe = ({ dishID, go, id }) => {
+    const [dishData, setDish] = useState(null);
+    const userCont = useContext(UserId);
+    const [trigger, setTrigger] = useState(false);
+    useEffect(() => {
+        // console.log('1: userID: ', usr.id, ' dishID: ', dishID);
+        const fetchData = async () => {
+            var res = await API.get(`/dishes/get/${userCont.id}/${dishID}`)
+            setDish(res.data);
+        }
+        fetchData();
+    }, [trigger])
     return (
-	<Panel id={id}>
-        <PanelHeader left={<PanelHeaderBack onClick={go} data-to="recipes"/>} separator={false}><span className='PanelHeader'>{title}</span></PanelHeader>
-        <Group className='Group menu'>
-            <Div>
-                <img className='menu__img' src='https://unsplash.com/photos/ZuIDLSz3XLg/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjc2MDE2NzE3&force=true&w=2400' alt='' />
-                <Text className='menu__descr_img'>
-                    {time}
-                </Text>
-                <Title level='2'>
-                    Ингредиенты
-                </Title>
-                <Text className='menu__descr_small'>
-                    {ingredients}
-                </Text>
-                <Title level='2'>
-                    Инструкция приготовления
-                </Title>
-                <Text className='menu__descr'>
-                    {preparation}
-                </Text>
-                <Text className='menu__descr_img'>
-                    Приятного аппетита :)
-                </Text>
-                <Button align='center'
-                mode='secondary' size='l'
-                stretched='true'
-                >
-                Добавить в понравившиеся
-              </Button>
-            </Div>
-        </Group>
-	</Panel>
+        <Panel id={id}>
+            {
+                dishData != null ?
+                    (
+                        <>
+                            <PanelHeader left={<PanelHeaderBack onClick={go} data-to="recipes" />} separator={false}>
+                                <span className='PanelHeader'>{dishData.name}</span>
+                            </PanelHeader>
+                            <Group className='Group menu'>
+                                <Div>
+                                    <img className='menu__img' src={dishData.photoURL} alt='' />
+                                    <Text className='menu__descr_img'>
+                                        Время на приготовление займёт <span>{dishData.timeTotal} минут</span>
+                                    </Text>
+                                    <Title level='2'>
+                                        Ингредиенты
+                                    </Title>
+                                    <Text className='menu__descr_small'>
+                                        <ul>
+                                            {dishData.products.map(product => (
+                                                <li key={product.name}>
+                                                    {product.name}
+                                                    {"\t-\t"}
+                                                    {product.amount} {product.unit}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </Text>
+                                    <Title level='2'>
+                                        Инструкция приготовления
+                                    </Title>
+                                    <Text className='menu__descr'>
+                                        <ol>
+                                            {
+                                                dishData.recipe.map(step => (
+                                                    <li key={Math.random()}>
+                                                        {step}
+                                                    </li>
+                                                ))
+                                            }
+                                        </ol>
+                                    </Text>
+                                    <Text className='menu__descr_img'>
+                                        {"Приятного аппетита :)"}
+                                    </Text>
+                                    {
+                                        !dishData.isLiked?(
+
+                                        <Button align='center'
+                                            mode='secondary' size='l'
+                                            stretched='true'
+                                            onClick={async(e) => {
+                                                e.preventDefault();
+                                                const a = await API.post(`/dishes/${userCont.id}/liked/${dishID}`)
+                                                setTrigger(!trigger);
+                                            }}
+                                        >
+                                            Добавить в понравившиеся
+                                        </Button>
+                                        ) : null
+                                    }
+                                </Div>
+                            </Group>
+                        </>
+                    )
+                    :
+                    (<img src={Persik} alt='' />)
+            }
+        </Panel>
     );
 };
 
