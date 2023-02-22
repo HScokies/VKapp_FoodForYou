@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import './Home.scss';
 import Header from '../../components/header/Header';
 import CardRep from '../../components/cardRep/CardRep';
-
 import ROUTES from '../../ROUTES';
 import { UserId } from '../../Context';
 
@@ -27,7 +26,7 @@ const Home = ({ id, setActivePanel, setActiveDish }) => {
 		<Panel id={id}>
 			<Header>Главная</Header>
 			<Group mode='card' className='Group'>
-				<Title level='1' className='Group__Header'>Как насчет:</Title>
+				<Title level='1' className='Group__Header'>Это стоит попробовать</Title>
 				<Div>
 					<CardRep
 					DishID={dish.id}
