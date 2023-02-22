@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import bridge from '@vkontakte/vk-bridge';
 
-import { View, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Tabbar, TabbarItem, ModalRoot, ModalPage, Group, ModalPageHeader, PanelHeaderClose, SimpleCell, Panel, Snackbar } from '@vkontakte/vkui';
+import { View, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Tabbar, TabbarItem, ModalRoot, ModalPage, Group, ModalPageHeader, PanelHeaderClose, SimpleCell, Snackbar } from '@vkontakte/vkui';
 
-import { Icon28SearchLikeFilledOutline, Icon28HomeOutline, Icon28ArticleOutline, Icon28ChefHatOutline, Icon24ChevronCompactRight, Icon16ErrorCircleFill } from '@vkontakte/icons';
+import { Icon28SearchLikeFilledOutline, Icon28HomeOutline, Icon28ArticleOutline, Icon28ChefHatOutline, Icon24ChevronCompactRight } from '@vkontakte/icons';
 import '@vkontakte/vkui/dist/vkui.css';
 import './style/App.scss';
 
@@ -31,6 +31,9 @@ const App = () => {
 	const [activeDish, setActiveDish] = useState(null);
 
 	const [randomDishes, setRandomDishes] = useState(null);
+	const [lastPanel, setLastPanel] = useState(ROUTES.home);
+
+
 
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data } }) => {
@@ -51,9 +54,6 @@ const App = () => {
 		fetchData();
 	}, []);
 
-	const go = e => {
-		setActivePanel(e.currentTarget.dataset.to);
-	};
 
 	const [activeModal, setActiveModal] = useState(null);
 
@@ -90,6 +90,8 @@ const App = () => {
 		setPopout(
 		<Snackbar
 			onClose={() => setPopout(null)}
+			duration={3000}
+			
 		>
 			Блюдо добавлено в список понравившихся
 		</Snackbar>
@@ -128,6 +130,7 @@ const App = () => {
 										dishID={activeDish}
 										usr={fetchedUser}
 										toggleSnackBar = {() => SetSnackBar()}
+										lastPage = {lastPanel}
 									/>
 								</View>
 							</UserId.Provider>
@@ -135,22 +138,22 @@ const App = () => {
 						<Tabbar className='app__tabbar'>
 							<TabbarItem text='Главная'
 								selected={activePanel === ROUTES.home}
-								onClick={() => setActivePanel(ROUTES.home)}>
+								onClick={() => {setActivePanel(ROUTES.home); setLastPanel(ROUTES.home) }}>
 								<Icon28HomeOutline />
 							</TabbarItem>
 							<TabbarItem text='Рецептики'
 								selected={activePanel === ROUTES.recipes}
-								onClick={() => setActivePanel(ROUTES.recipes)}>
+								onClick={() => {setActivePanel(ROUTES.recipes); setLastPanel(ROUTES.recipes)}}>
 								<Icon28ArticleOutline />
 							</TabbarItem>
 							<TabbarItem text='Меню'
 								selected={activePanel === ROUTES.menu}
-								onClick={() => setActivePanel(ROUTES.menu)}>
+								onClick={() => {setActivePanel(ROUTES.menu); setLastPanel(ROUTES.menu)}}>
 								<Icon28ChefHatOutline />
 							</TabbarItem>
 							<TabbarItem text='Понравилось'
 								selected={activePanel === ROUTES.liked}
-								onClick={() => setActivePanel(ROUTES.liked)}>
+								onClick={() => {setActivePanel(ROUTES.liked); setLastPanel(ROUTES.liked)}}>
 								<Icon28SearchLikeFilledOutline />
 							</TabbarItem>
 						</Tabbar>

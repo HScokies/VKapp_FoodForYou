@@ -35,8 +35,9 @@ const Recipes = ({ id, setActivePanel, openFilters, activeCategory, setActiveDis
             }
             setDishes(response)
         }
+
         fetchData();
-    }, [activeCategory, randDishes])
+    }, [activeCategory, userCont])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,6 +55,7 @@ const Recipes = ({ id, setActivePanel, openFilters, activeCategory, setActiveDis
         fetchData();
     }, [search])
 
+    const [trigger, setTrigger] = useState(false);
     return (
         <Panel id={id}>
             <Header left={null}>Рецептики</Header>
@@ -63,7 +65,7 @@ const Recipes = ({ id, setActivePanel, openFilters, activeCategory, setActiveDis
                     <>
                         <Group className='Group'>
                             <div className='recipes__category'>
-                                <Search placeholder='Поиск по рецептам...' value={search} onChange={(e) => { setSearch(e.target.value); }} after={null}/>
+                                <Search placeholder='Поиск по рецептам...' value={search} onChange={(e) => { setSearch(e.target.value); }} after={null} />
                                 <Button mode='secondary' size='m' className='recipes__button'
                                     onClick={openFilters}
                                 >
@@ -79,14 +81,8 @@ const Recipes = ({ id, setActivePanel, openFilters, activeCategory, setActiveDis
                                             setActiveDish={setActiveDish}
                                             setActivePanel={setActivePanel}
                                             DishID={dish.id}
-                                            img={dish.photoURL}
-                                            title={dish.name}
-                                            descr={dish.products.map(
-                                                productDat => (
-                                                    productDat == dish.products[dish.products.length - 1] ? `${productDat.name}.` : `${productDat.name}, `
-                                                )
-                                            )}
-                                            isLiked={dish.isLiked}
+                                            trigger={trigger}
+                                            triggerSet={setTrigger}
                                         />
                                     ))
                             }

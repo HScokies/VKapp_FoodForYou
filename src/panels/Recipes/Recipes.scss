@@ -2,8 +2,8 @@
     margin-bottom: 30px;
     &__category{
         display: flex;
-        align-items: flex-start;
-        margin: 4% 3%;
+        align-items: center;
+        margin: 2% 3% 4%;
     }
     &__button{
         margin: auto;
@@ -16,6 +16,12 @@
         margin: 0 auto;
     }
 }
+
+.vkuiGroup--plain, .vkuiSearch, .vkuiSearch--android{
+    padding: 0 !important;
+    padding-inline: 16px !important;
+}
+
 .NotFound{
     display: block;
     width: 100%;

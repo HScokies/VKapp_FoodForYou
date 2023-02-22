@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 
 
-import { Panel, Button, Group, Div, Text, Title, PanelHeader, PanelHeaderBack, Snackbar } from '@vkontakte/vkui';
+import { Panel, Button, Group, Div, Text, Title, PanelHeader, PanelHeaderBack, lastPage } from '@vkontakte/vkui';
 import { Icon24ClockOutline } from '@vkontakte/icons';
 
 import API from '../../api/AxiosConfig';
@@ -9,11 +9,10 @@ import { UserId } from '../../Context';
 import { ROUTES } from "../../ROUTES";
 import Placeholder from '../../img/Loading.gif';
 
-const Recipe = ({ dishID, setActivePanel, id, toggleSnackBar }) => {
+const Recipe = ({ dishID, setActivePanel, id, toggleSnackBar, lastPage }) => {
     const [dishData, setDish] = useState(null);
     const userCont = useContext(UserId);
     const [trigger, setTrigger] = useState(false);
-    const [snackbar, setSnackbar] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,7 +28,7 @@ const Recipe = ({ dishID, setActivePanel, id, toggleSnackBar }) => {
                 dishData != null ?
                     (
                         <>
-                            <PanelHeader left={<PanelHeaderBack onClick={() => setActivePanel(ROUTES.recipes)} />} separator={false}>
+                            <PanelHeader left={<PanelHeaderBack onClick={() => setActivePanel(lastPage)} />} separator={false}>
                                 <span className='PanelHeader'>{dishData.name}</span>
                             </PanelHeader>
                             <Group className='Group menu'>
@@ -89,11 +88,11 @@ const Recipe = ({ dishID, setActivePanel, id, toggleSnackBar }) => {
                                 </Div>
                             </Group>
                         </>
-                    )
+    )
                     :
-                    (<img src={Placeholder} alt='' />)
+(<img src={Placeholder} alt='' />)
             }
-        </Panel>
+        </Panel >
     );
 };
 

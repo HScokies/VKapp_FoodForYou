@@ -37,18 +37,9 @@ const Recipes = ({ id, go, setActiveDish, setActivePanel }) => {
                         likedDishes.map(dish => (
                             <CardRep
                                 key={dish.id}
-                                img={dish.photoURL}
-                                title={dish.name}
-                                isLiked={dish.isLiked}
-                                descr={dish.products.map(
-                                    productDat => (
-                                        productDat == dish.products[dish.products.length - 1] ? `${productDat.name}.` : `${productDat.name}, `
-                                    )
-                                )}
+                                DishID={dish.id} 
                                 setActiveDish={setActiveDish}
                                 setActivePanel={setActivePanel}
-                                DishID={dish.id}
-                                UID={userCtx.id}
                                 trigger={trigger}
                                 triggerSet={setTrigger}
                             />

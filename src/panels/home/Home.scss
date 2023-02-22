@@ -1,7 +1,8 @@
-.Group{
+.Group {
     height: 100%;
     margin-bottom: 30px;
-    &__Header{
+
+    &__Header {
         font-weight: bold;
         margin: 0 12% 25px;
         padding-top: 5vh;
@@ -10,15 +11,21 @@
     }
 }
 
-.home{
-    &__phrase{
+.home {
+    &__phrase {
         text-align: center;
         max-width: 90%;
         margin: 2% auto 0;
-        &_descr{
+
+        &_descr {
             padding-top: 10px;
             font-size: 17px;
         }
     }
 }
 
+@media (max-width: 420px) {
+    .Group {
+        margin-bottom: 40px;
+    }
+}

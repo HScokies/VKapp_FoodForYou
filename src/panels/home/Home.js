@@ -10,40 +10,40 @@ import API from '../../api/AxiosConfig';
 
 const Home = ({ id, setActivePanel, setActiveDish }) => {
 	const userCtx = useContext(UserId);
-	const [dish, setDish] = useState([]);
+	const [dish, setDish] = useState(null);
 	const [products, setProducts] = useState(null);
-	useEffect(() =>{
-		const fetchData = async() =>{
+	useEffect(() => {
+		const fetchData = async () => {
 			const response = (await API.get(`/dishes/${userCtx.id}/list`)).data
-			const res = response[Math.floor(Math.random()*response.length)];
+			const res = response[Math.floor(Math.random() * response.length)];
 			setProducts(res.products);
 			setDish(res);
 		}
-		if (userCtx != null)
+		if (userCtx != null || userCtx != undefined)
 			fetchData();
 	}, [userCtx])
 	return (
 		<Panel id={id}>
 			<Header>Главная</Header>
-			<Group mode='card' className='Group'>
-				<Title level='1' className='Group__Header'>Это стоит попробовать</Title>
-				<Div>
-					<CardRep
-					DishID={dish.id}
-					img={dish.photoURL}
-					title={dish.name}
-					descr={products == null? null : products.map(p => (p == products[products.length-1]? `${p.name}.` : `${p.name}, `))}
-					setActiveDish={setActiveDish}
-                    setActivePanel={setActivePanel}
-					/>
-				</Div>
-				<Div className='home__phrase'>
-					<Title level='2'>
-						Есть лишь одно удовольствие, превосходящее радость от вкусной еды, - это удовольствие от самого приготовления
-					</Title>
-					<Text className='home__phrase_descr'> &mdash; Гюнтер Грасс</Text>
-				</Div>
-			</Group>
+			{
+				dish == null ? null :
+					<Group mode='card' className='Group'>
+						<Title level='1' className='Group__Header'>Это стоит попробовать</Title>
+						<Div>
+							<CardRep
+								DishID={dish.id}
+								setActiveDish={setActiveDish}
+								setActivePanel={setActivePanel}
+							/>
+						</Div>
+						<Div className='home__phrase'>
+							<Title level='2'>
+								Есть лишь одно удовольствие, превосходящее радость от вкусной еды, - это удовольствие от самого приготовления
+							</Title>
+							<Text className='home__phrase_descr'> &mdash; Гюнтер Грасс</Text>
+						</Div>
+					</Group>
+			}
 		</Panel>
 	)
 };
