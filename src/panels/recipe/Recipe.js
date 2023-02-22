@@ -1,39 +1,43 @@
 import React, { useEffect, useState, useContext } from 'react';
-import './Recipe.scss';
-import Persik from '../../img/persik.png';
 
-import { Panel, Button, Group, Div, Text, Title, PanelHeader, PanelHeaderBack } from '@vkontakte/vkui';
+
+import { Panel, Button, Group, Div, Text, Title, PanelHeader, PanelHeaderBack, Snackbar } from '@vkontakte/vkui';
+import { Icon24ClockOutline } from '@vkontakte/icons';
+
 import API from '../../api/AxiosConfig';
-
 import { UserId } from '../../Context';
+import { ROUTES } from "../../ROUTES";
+import Placeholder from '../../img/Loading.gif';
 
-const Recipe = ({ dishID, go, id }) => {
+const Recipe = ({ dishID, setActivePanel, id, toggleSnackBar }) => {
     const [dishData, setDish] = useState(null);
     const userCont = useContext(UserId);
     const [trigger, setTrigger] = useState(false);
+    const [snackbar, setSnackbar] = useState(null);
+
     useEffect(() => {
-        // console.log('1: userID: ', usr.id, ' dishID: ', dishID);
         const fetchData = async () => {
             var res = await API.get(`/dishes/get/${userCont.id}/${dishID}`)
             setDish(res.data);
         }
         fetchData();
-    }, [trigger])
+    }, [userCont, trigger])
+
     return (
         <Panel id={id}>
             {
                 dishData != null ?
                     (
                         <>
-                            <PanelHeader left={<PanelHeaderBack onClick={go} data-to="recipes" />} separator={false}>
+                            <PanelHeader left={<PanelHeaderBack onClick={() => setActivePanel(ROUTES.recipes)} />} separator={false}>
                                 <span className='PanelHeader'>{dishData.name}</span>
                             </PanelHeader>
                             <Group className='Group menu'>
                                 <Div>
                                     <img className='menu__img' src={dishData.photoURL} alt='' />
-                                    <Text className='menu__descr_img'>
-                                        Время на приготовление займёт <span>{dishData.timeTotal} минут</span>
-                                    </Text>
+                                    <div className='menu__descr_img'>
+                                        <Icon24ClockOutline /> Время приготовления: <span>{dishData.timeTotal} минут</span>
+                                    </div>
                                     <Title level='2'>
                                         Ингредиенты
                                     </Title>
@@ -43,7 +47,7 @@ const Recipe = ({ dishID, go, id }) => {
                                                 <li key={product.name}>
                                                     {product.name}
                                                     {"\t-\t"}
-                                                    {product.amount} {product.unit}
+                                                    {product.amount? product.amount : null} {product.unit}
                                                 </li>
                                             ))}
                                         </ul>
@@ -75,6 +79,7 @@ const Recipe = ({ dishID, go, id }) => {
                                                 e.preventDefault();
                                                 const a = await API.post(`/dishes/${userCont.id}/liked/${dishID}`)
                                                 setTrigger(!trigger);
+                                                toggleSnackBar();
                                             }}
                                         >
                                             Добавить в понравившиеся
@@ -86,7 +91,7 @@ const Recipe = ({ dishID, go, id }) => {
                         </>
                     )
                     :
-                    (<img src={Persik} alt='' />)
+                    (<img src={Placeholder} alt='' />)
             }
         </Panel>
     );

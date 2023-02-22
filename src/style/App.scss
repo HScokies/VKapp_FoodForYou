@@ -5,8 +5,51 @@
             color: #389F4D;
         }
     }
+    &__spinner{
+        img {
+            max-width: 100%;
+        }
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        backdrop-filter: blur(10px);
+    }
 }
 
 .vkuiSimpleCell__after{
     color: #B8C1CC;
+}
+
+.vkuiPanelHeader--ios .vkuiPanelHeader__left{
+    margin-right: auto;
+    max-width: 20px !important;
+    &:not(:has(svg)){
+        display: none
+    }
+}
+.vkuiPanelHeader__in:not(:has(svg)){
+    justify-content: center !important;
+}
+.vkuiPanelHeader--ios .vkuiPanelHeader__in{
+    justify-content: center !important;
+    align-items:  center !important;
+}
+.vkuiPanelHeader--ios .vkuiPanelHeader__content-in{
+    line-height: normal !important;
+}
+.vkuiFixedLayout__in .FixedLayout__in{
+    display: flex;
+    align-items: center;
+}
+
+.vkuiPanelHeaderButton--ios .vkuiIcon--28{
+    width: 20px;
+    height: 28px;
+    padding: 0 !important;
+    margin-right: auto;
+}
+
+.vkuiPanelHeader--ios .vkuiPanelHeader__content{
+    display: block !important;
+    width: 100%;
 }

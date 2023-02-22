@@ -1,33 +1,36 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import bridge from '@vkontakte/vk-bridge';
 
-import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Tabbar, TabbarItem, ModalRoot, ModalPage, Group, ModalPageHeader, PanelHeaderClose, SimpleCell } from '@vkontakte/vkui';
+import { View, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Tabbar, TabbarItem, ModalRoot, ModalPage, Group, ModalPageHeader, PanelHeaderClose, SimpleCell, Panel, Snackbar } from '@vkontakte/vkui';
 
-import { Icon28SearchLikeFilledOutline, Icon28HomeOutline, Icon28ArticleOutline, Icon28ChefHatOutline, Icon24DismissDark, Icon24ChevronCompactRight } from '@vkontakte/icons';
+import { Icon28SearchLikeFilledOutline, Icon28HomeOutline, Icon28ArticleOutline, Icon28ChefHatOutline, Icon24ChevronCompactRight, Icon16ErrorCircleFill } from '@vkontakte/icons';
 import '@vkontakte/vkui/dist/vkui.css';
 import './style/App.scss';
 
 import { ROUTES } from './ROUTES';
 import { UserId } from './Context';
 import Home from './panels/home/Home';
-import Persik from './panels/Persik';
 import Menu from './panels/menu/Menu';
 import Liked from './panels/liked/Liked';
 import Recipes from './panels/Recipes/Recipes';
 import Recipe from './panels/recipe/Recipe';
 
 import API from './api/AxiosConfig';
+import Placeholder from './img/Loading.gif';
 
 const App = () => {
 	const [scheme, setScheme] = useState('bright_light')
 	const [activePanel, setActivePanel] = useState(ROUTES.home);
 	const [fetchedUser, setUser] = useState(null);
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	
+	const [popout, setPopout] = useState(<div className='app__spinner'><img src={Placeholder} /></div>);
 	const [fetchedCategories, setCategories] = useState([]);
 	const [activeCategory, setActiveCategory] = useState(1);
 
 	const [mainPageDish, setMainPageDish] = useState(null);
 	const [activeDish, setActiveDish] = useState(null);
+
+	const [randomDishes, setRandomDishes] = useState(null);
 
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data } }) => {
@@ -69,7 +72,7 @@ const App = () => {
 				onClose={hideModal}
 				header={
 					<ModalPageHeader left={<PanelHeaderClose onClick={hideModal} />}>
-						Фильтры
+						Категории
 					</ModalPageHeader>}
 			>
 				<Group>
@@ -82,7 +85,16 @@ const App = () => {
 			</ModalPage>
 		</ModalRoot>
 	)
-
+	
+	const SetSnackBar = () => (
+		setPopout(
+		<Snackbar
+			onClose={() => setPopout(null)}
+		>
+			Блюдо добавлено в список понравившихся
+		</Snackbar>
+		)
+	)
 	return (
 		<ConfigProvider scheme={scheme} >
 			<AdaptivityProvider>
@@ -93,25 +105,29 @@ const App = () => {
 								<View activePanel={activePanel}>
 									<Home id={ROUTES.home}
 										setActivePanel={setActivePanel}
-										setActiveDish={setActiveDish} />
-									<Persik id={ROUTES.persik} go={go} />
+										setActiveDish={setActiveDish}
+										
+										/>
 									<Recipes id={ROUTES.recipes}
 										setActivePanel={setActivePanel}
 										setActiveDish={setActiveDish}
 										openFilters={openFilters}
 										activeCategory={activeCategory}
+										setRandDishes = {setRandomDishes}
+										randDishes = {randomDishes}
+
 									/>
-									<Menu id={ROUTES.menu}
-									/>
+									<Menu id={ROUTES.menu} toggleSnackBar = {() => SetSnackBar()}/>
 									<Liked id={ROUTES.liked}
 										setActivePanel={setActivePanel}
 										setActiveDish={setActiveDish}
 									/>
 									<Recipe
-										id='recipe'
-										go={go}
+										id={ROUTES.recipe}
+										setActivePanel={setActivePanel}
 										dishID={activeDish}
 										usr={fetchedUser}
+										toggleSnackBar = {() => SetSnackBar()}
 									/>
 								</View>
 							</UserId.Provider>
@@ -122,7 +138,7 @@ const App = () => {
 								onClick={() => setActivePanel(ROUTES.home)}>
 								<Icon28HomeOutline />
 							</TabbarItem>
-							<TabbarItem text='Категории'
+							<TabbarItem text='Рецептики'
 								selected={activePanel === ROUTES.recipes}
 								onClick={() => setActivePanel(ROUTES.recipes)}>
 								<Icon28ArticleOutline />
