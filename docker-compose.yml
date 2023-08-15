@@ -1,0 +1,48 @@
+version: '3.4'
+
+networks:
+  foodforyou:
+
+services:
+   app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - foodforyou
+
+   foodforyoudb:
+    container_name: foodforyoudb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 64704:1433
+    environment:
+        - ACCEPT_EULA=Y
+        - User=sa
+        - MSSQL_SA_PASSWORD=PASSWORD_GOES_HERE
+    networks:
+        - foodforyou
+
+   foodforyou:
+    container_name: foodforyou
+    image: hscokies/foodforyou:latest
+    ports:
+        - 64705:80
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+        - foodforyoudb
+    environment:
+        - DB_HOST=foodforyoudb
+        - DB_NAME=FoodForYou
+        - DB_SA_PASSWORD=PASSWORD_GOES_HERE
+        - DB_USER=sa
+    networks:
+        - foodforyou
